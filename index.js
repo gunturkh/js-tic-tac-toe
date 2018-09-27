@@ -7,6 +7,7 @@ $(function() {
     let o_win = 0
     let x_win = 0
 
+    // Declare Tiles Class
     class Tiles {
       constructor(element){
         this.element=element
@@ -17,7 +18,6 @@ $(function() {
         else if (this.element.hasClass('x')) return 'x'
         else return 'default'
       }
-
     }
 
     
@@ -36,7 +36,11 @@ $(function() {
     let eight = new Tiles ($("#eight"))
     let nine = new Tiles ($("#nine"))
 
-    
+    resetBoard = () => {
+      gameLists.text("+");
+      gameLists.removeClass('disable o x btn-primary btn-info')
+      count = 0
+    }
 
 
     checkWinner = () => {
@@ -88,46 +92,31 @@ $(function() {
      if (count == 9)
       {
         alert('Its a tie. It will restart.')
-        gameLists.text("+");
-        gameLists.removeClass('disable o x btn-primary btn-info')
-        count = 0
+        resetBoard()
+        
       }
-      else if ($(this).hasClass('disable'))
+    else if ($(this).hasClass('disable'))
       {
         alert('Already selected')
       }
-      else if (count%2 == 0)
+    else if (count%2 == 0)
       {
         count++
         $(this).text(o)
         $(this).addClass('disable o btn-primary')
-        if (checkWinner()==='o')
-        {
-          gameLists.text("+");
-          gameLists.removeClass('disable o x btn-primary btn-info')
-          count = 0
-        }
+        if (checkWinner()==='o') resetBoard()
           
       }
-       else  
+    else  
       {
         count++
         $(this).text(x)
         $(this).addClass('disable x btn-info')
-        if (checkWinner()==='x')
-        {
-          gameLists.text("+");
-          gameLists.removeClass('disable o x btn-primary btn-info')
-          count = 0
-        }
+        if (checkWinner()==='x') resetBoard()
       }
     
-       })
-        reset.click(()=> {
-          gameLists.text("+");
-          gameLists.removeClass('disable o x btn-primary btn-info')
-          count = 0
-    
-      })
-      
     })
+        
+    reset.click(()=> resetBoard())
+      
+  })
