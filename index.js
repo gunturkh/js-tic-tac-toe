@@ -36,15 +36,17 @@ $(function() {
     let eight = new Tiles ($("#eight"))
     let nine = new Tiles ($("#nine"))
 
+    // Function to Reset Board Tiles
     resetBoard = () => {
       gameLists.text("+");
       gameLists.removeClass('disable o x btn-primary btn-info')
       count = 0
     }
 
-
+    // Function to check winner
     checkWinner = () => {
-
+    
+    // Some winning combinations on 3x3 tic tac toe
     let winState = 
     [
       [one,two,three],
@@ -57,6 +59,7 @@ $(function() {
       [three,five,seven]
     ]
 
+    // Filtering each tiles that meet the winning combination criteria
     let result =  winState.filter( item => {
       return (
       item[0].getClass()===('x') && 
@@ -67,6 +70,7 @@ $(function() {
       item[2].getClass()===('o'))
     })
 
+      // Decide the winner 
       if(result.length>0) 
       {
         let decidedWinner=result[0][0].getClass()
@@ -84,9 +88,9 @@ $(function() {
         
         return decidedWinner
       } 
-      
     }
     
+    // Function that will trigger when tiles clicked
     gameLists.click(function(){
 
      if (count == 9)
@@ -116,7 +120,8 @@ $(function() {
       }
     
     })
-        
+    
+    // Button restart
     reset.click(()=> resetBoard())
       
   })
